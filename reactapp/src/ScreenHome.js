@@ -1,9 +1,10 @@
 import React, {useState} from 'react';
 import './App.css';
 import {Input,Button} from 'antd';
-import {Link, Redirect} from 'react-router-dom'
+import {Link, Redirect} from 'react-router-dom';
+import {connect} from 'react-redux';
 
-function ScreenHome() {
+function ScreenHome(props) {
 
   const [signUpUsername, setSignUpUsername] = useState('')
   const [signUpEmail, setSignUpEmail] = useState('')
@@ -29,6 +30,8 @@ function ScreenHome() {
 
     if(body.result == true){
       setUserExists(true)
+      const token = body.saveUser.token
+      props.onTokenClick(token)
     } else {
       setErrorsSignup(body.error)
     }
@@ -46,6 +49,8 @@ function ScreenHome() {
 
     if(body.result == true){
       setUserExists(true)
+       const token = body.user.token;
+    props.onTokenClick(token)
     }  else {
       setErrorsSignin(body.error)
     }
@@ -102,4 +107,12 @@ function ScreenHome() {
   );
 }
 
-export default ScreenHome;
+function mapDispatchToProps(dispatch) {
+  return {
+    onTokenClick: function(token) {
+        dispatch( {type: 'tokenClick', token} )
+    }
+  }
+ }
+
+ export default connect(null, mapDispatchToProps)(ScreenHome);

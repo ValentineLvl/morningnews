@@ -2,17 +2,18 @@ import React from 'react';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
 import './App.css';
 
-import {provider, Provider} from 'react-redux'
+import {Provider} from 'react-redux'
 import {createStore, combineReducers} from 'redux'
 
 import wishList from './reducers/articles'
+import tokenUser from './reducers/users'
 
 import ScreenHome from './ScreenHome';
 import ScreenArticlesBySource from './ScreenArticlesBySource'
 import ScreenMyArticles from './ScreenMyArticles'
 import ScreenSource from './ScreenSource'
 
-const store = createStore(combineReducers({wishList}))
+const store = createStore(combineReducers({wishList, tokenUser}))
 
 function App() {
   return (
